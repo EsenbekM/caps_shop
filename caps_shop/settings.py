@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'djoser',
     'main',
     'django_filters',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
