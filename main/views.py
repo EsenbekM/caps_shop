@@ -3,14 +3,14 @@ from rest_framework import pagination
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.pagination import PageNumberPagination
 from .serializers import BrandSerializer, CapsSerializer, CapCreateValidateSerializer
 from .models import Brand, Cap
 from django_filters.rest_framework import DjangoFilterBackend
 
 
-class CapListAPIView(ListCreateAPIView):
+class CapListAPIView(ListAPIView):
     queryset = Cap.objects.all()
     serializer_class = CapsSerializer
     pagination_class = PageNumberPagination
@@ -18,12 +18,12 @@ class CapListAPIView(ListCreateAPIView):
     filterset_fields = ['brand']
 
 
-class CapDetailAPIView(RetrieveUpdateDestroyAPIView):
+class CapDetailAPIView(RetrieveAPIView):
     queryset = Cap.objects.all()
     serializer_class = CapsSerializer
     lookup_field = 'id'
 
-class BrandDetailAPIView(RetrieveUpdateDestroyAPIView):
+class BrandDetailAPIView(RetrieveAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     lookup_field = 'id'

@@ -20,7 +20,7 @@ REST_FRAMEWORK = {
 SECRET_KEY = 'django-insecure-a^kce@urmy@ey5uawx2v7hx*x!$^$%o-h7pve5kh!8)d=%i$1w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -80,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'shop_db',
-        'USER': 'batyr',
-        'PASSWORD': '887799',
+        'USER': 'esen',
+        'PASSWORD': 'essa.03.',
         'HOST':'localhost',
         'PORT': '5432'
     }
