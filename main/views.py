@@ -1,4 +1,5 @@
 from django.http import HttpRequest
+from django_filters import filters
 from rest_framework import pagination
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -15,17 +16,13 @@ class CapListAPIView(ListAPIView):
     serializer_class = CapsSerializer
     pagination_class = PageNumberPagination
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['brand']
+    filterset_fields = ['brand','size', 'name']
+
 
 
 class CapDetailAPIView(RetrieveAPIView):
     queryset = Cap.objects.all()
     serializer_class = CapsSerializer
-    lookup_field = 'id'
-
-class BrandDetailAPIView(RetrieveAPIView):
-    queryset = Brand.objects.all()
-    serializer_class = BrandSerializer
     lookup_field = 'id'
 
 
