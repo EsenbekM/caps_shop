@@ -10,6 +10,9 @@ from .serializers import BrandSerializer, CapsSerializer, CapCreateValidateSeria
 from .models import Brand, Cap
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import ListModelMixin
+
 
 
 class CapListAPIView(ListAPIView):
@@ -26,6 +29,22 @@ class CapDetailAPIView(RetrieveAPIView):
     queryset = Cap.objects.all()
     serializer_class = CapsSerializer
     lookup_field = 'id'
+
+
+class BrandCapListAPIView(ListModelMixin, GenericAPIView):
+    serializer_class = CapsSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Cap.objects.filter(brand_id=pk)
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+class BrandListAPIView(ListAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    pagination_class = PageNumberPagination
 
 
 
