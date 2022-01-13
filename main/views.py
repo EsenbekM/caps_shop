@@ -9,14 +9,16 @@ from rest_framework.pagination import PageNumberPagination
 from .serializers import BrandSerializer, CapsSerializer, CapCreateValidateSerializer
 from .models import Brand, Cap
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
 
 
 class CapListAPIView(ListAPIView):
     queryset = Cap.objects.all()
     serializer_class = CapsSerializer
     pagination_class = PageNumberPagination
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['brand','size', 'name']
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['brand','size']
+    search_fields = ['name']
 
 
 
