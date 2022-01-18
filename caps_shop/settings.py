@@ -1,6 +1,11 @@
+from environs import Env
+
 from pathlib import Path
 import os
 from datetime import timedelta
+
+env = Env()
+env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,7 +22,7 @@ REST_FRAMEWORK = {
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a^kce@urmy@ey5uawx2v7hx*x!$^$%o-h7pve5kh!8)d=%i$1w'
+SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,12 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # installed libraries
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
-    'main',
     'django_filters',
-    'drf_yasg'
+    'drf_yasg',
+    
+    # app
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +66,7 @@ ROOT_URLCONF = 'caps_shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,11 +88,11 @@ WSGI_APPLICATION = 'caps_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'shop_db',
-        'USER': 'esen',
-        'PASSWORD': 'essa.03.',
-        'HOST':'localhost',
-        'PORT': '5432'
+        'NAME': env.str('NAME_DB'),
+        'USER': env.str('USER_DB'),
+        'PASSWORD': env.str('PASSWORD_DB'),
+        'HOST': env.str('HOST_DB'),
+        'PORT': env.str('PORT_DB')
     }
 }
 
