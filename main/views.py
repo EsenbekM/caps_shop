@@ -1,13 +1,13 @@
 from django.http import HttpRequest
-from django_filters import filters
+
 from rest_framework import pagination
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import PageNumberPagination
-from .serializers import BrandSerializer, CapsSerializer, CapCreateValidateSerializer
-from .models import Brand, Cap
+from .serializers import BrandSerializer, CapsSerializer, CapCreateValidateSerializer, FavoriteSerializer
+from .models import Brand, Cap, Favorites
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import GenericAPIView
@@ -22,6 +22,7 @@ class CapListAPIView(ListAPIView):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['brand','size']
     search_fields = ['name']
+
 
 
 
@@ -45,6 +46,12 @@ class BrandListAPIView(ListAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     pagination_class = PageNumberPagination
+
+
+class FavoriteListAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Favorites.objects.all()
+    serializer_class = FavoriteSerializer
+    lookup_field = 'id'
 
 
 
