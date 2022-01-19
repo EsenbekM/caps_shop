@@ -6,8 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import PageNumberPagination
-from .serializers import BrandSerializer, CapsSerializer, CapCreateValidateSerializer, FavoriteSerializer
-from .models import Brand, Cap, Favorites
+from .serializers import BrandSerializer, CapsSerializer, CapCreateValidateSerializer
+from .models import Brand, Cap
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import GenericAPIView
@@ -46,14 +46,6 @@ class BrandListAPIView(ListAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     pagination_class = PageNumberPagination
-
-
-class FavoriteListAPIView(RetrieveUpdateDestroyAPIView):
-    queryset = Favorites.objects.all()
-    serializer_class = FavoriteSerializer
-    lookup_field = 'id'
-
-
 
 
 

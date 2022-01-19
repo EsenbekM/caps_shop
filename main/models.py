@@ -32,10 +32,6 @@ class Cap(models.Model):
     def __str__(self):
         return self.name 
 
-class Favorites(models.Model):
-    cap = models.ForeignKey(Cap, on_delete=models.CASCADE)
-
-
     # @staticmethod
     # def get_all_products():
     #     return Cap.objects.all()

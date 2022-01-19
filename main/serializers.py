@@ -29,9 +29,3 @@ class CapCreateValidateSerializer(serializers.Serializer):
     def validate_title(self, name):
         if Cap.objects.filter(name=name):
             raise ValidationError("This cap already exist!")
-
-class FavoriteSerializer(serializers.Serializer):
-    
-    class Meta:
-        model = Favorites
-        fields = '__all__'
