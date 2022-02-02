@@ -21,7 +21,7 @@ class Brand(models.Model):
 
 class Cap(models.Model):
     name = models.CharField(max_length=100)
-    imege = models.ImageField(upload_to='caps', null=True, blank=True)
+    image = models.ImageField(upload_to='caps', null=True, blank=True)
     description = models.TextField()
     price = models.FloatField() 
     size = models.ManyToManyField(Size)
