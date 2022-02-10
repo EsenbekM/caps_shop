@@ -23,10 +23,10 @@ REST_FRAMEWORK = {
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-a^kce@urmy@ey5uawx2v7hx*x!$^$%o-h7pve5kh!8)d=%i$1w"
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -89,11 +89,11 @@ WSGI_APPLICATION = 'caps_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'shop_db',
-        'USER': 'esen',
-        'PASSWORD': 'essa.03.',
-        'HOST':'localhost',
-        'PORT': '5432'
+        'NAME': env.str('NAME_DB'),
+        'USER': env.str('USER_DB'),
+        'PASSWORD': env.str('PASSWORD_DB'),
+        'HOST': env.str('HOST_DB'),
+        'PORT': env.str('PORT_DB'),
     }
 }
 
