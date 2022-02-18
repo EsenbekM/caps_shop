@@ -1,4 +1,5 @@
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django_filters import filters
 from rest_framework import pagination
 from rest_framework.decorators import api_view, permission_classes
@@ -6,8 +7,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.pagination import PageNumberPagination
-from .serializers import BrandSerializer, CapsSerializer, CapCreateValidateSerializer
-from .models import Brand, Cap
+from .serializers import BestsellerSerializer, BrandSerializer, CapsSerializer, CapCreateValidateSerializer
+from .models import Bestsallers, Brand, Cap
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import GenericAPIView
@@ -45,6 +46,33 @@ class BrandListAPIView(ListAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     pagination_class = PageNumberPagination
+
+class BestsellersListAPIView(ListAPIView):
+    queryset = Bestsallers.objects.all()
+    serializer_class = BestsellerSerializer
+    pagination_class = PageNumberPagination
+
+# def show_Book(request,CapID):
+#     showBook=get_object_or_404(Cap,CapID=CapID)
+#     is_favorite=False
+#         if showBook.favorit.filter(id=request.user.id).exists():
+#         is_favorite=True
+#     return Response(data={'message': 'cap added'})
+
+# def favoritbook (request, CapID):
+#     showBook=get_object_or_404(Cap,CapID=CapID)
+#     if showBook.favorit.filter(id=request.user.id).exists():
+#         showBook.favorit.remove(request.user)
+#     else:
+#         showBook.favorit.add(request.user)
+#     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+# def favoritlist(request):
+#     user=request.user
+#     favoritbooks=user.favorit.all()
+#     context={'favoritbooks':favoritbooks}
+#     return Response(data={'message': 'cap deleted'})
 
 
 

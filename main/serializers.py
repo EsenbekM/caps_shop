@@ -13,6 +13,13 @@ class BrandSerializer(serializers.ModelSerializer):
         model = Brand
         fields = '__all__'
 
+
+class BestsellerSerializer(serializers.ModelSerializer):
+    cap = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    class Meta:
+        model = Bestsallers
+        fields = '__all__'
+
 class CapCreateValidateSerializer(serializers.Serializer):
     name = serializers.CharField(min_length=1, max_length=200)
     description = serializers.CharField()

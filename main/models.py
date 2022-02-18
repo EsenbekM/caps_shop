@@ -1,3 +1,5 @@
+from pyexpat import model
+from tkinter import CASCADE
 from django.db import models
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 
@@ -27,12 +29,19 @@ class Cap(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    favorit=models.ManyToManyField('users.User',related_name='favorit', blank=True)
 
     new_price = models.FloatField(default=True,null=True,blank=True)
 
 
     def __str__(self):
         return self.name 
+
+class Bestsallers(models.Model):
+    cap = models.ForeignKey(Cap, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.cap}'
 
     # @staticmethod
     # def get_all_products():
