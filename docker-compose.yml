@@ -5,9 +5,10 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_DB: ${NAME_DB}
+      POSTGRES_PASSWORD: ${PASSWORD_DB}
+      POSTGRES_USER: ${USER_DB}
+      
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
