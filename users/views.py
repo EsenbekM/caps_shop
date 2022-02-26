@@ -9,7 +9,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status, views
 from rest_framework.response import Response
-
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.sites.shortcuts import get_current_site
 
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -19,6 +19,7 @@ from .serializers import RegistrationSerializer, EmailVerificationSerializer, \
     LoginSerializer, ResetPasswordEmailRequestSerializer, SetNewPasswordSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from .utils import Util
+from users import serializers
 
 
 class CustomRedirect(HttpResponsePermanentRedirect):
@@ -61,6 +62,7 @@ class VerifyEmail(views.APIView):
             user = User.objects.get(id=payload['user_id'])
             if not user.is_verified:
                 user.is_verified = True
+                user.is_active = True
                 user.save()
             return Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
         except jwt.ExpiredSignatureError:
@@ -105,7 +107,7 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
 
 class PasswordTokenCheckAPI(generics.GenericAPIView):
     serializer_class = ResetPasswordEmailRequestSerializer
-
+    
     def get(self, request, uidb64, token):
         try:
             id = smart_str(urlsafe_base64_decode(uidb64))
@@ -132,3 +134,18 @@ class SetNewPasswordAPIView(generics.GenericAPIView):
 
 
 
+class ProfileApiView(generics.GenericAPIView):
+    serializer_class = serializers.UserSerializer
+    pagination_class = None
+    permission_classes = (IsAuthenticated,)
+
+    @swagger_auto_schema(responses={'200': serializers.UserSerializer()})
+    def get(self, request):
+        serializer = self.get_serializer(instance=request.user)
+        return Response(data=serializer.data)
+
+    def patch(self, request):
+        serializer = self.get_serializer(request.user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data)

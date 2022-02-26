@@ -130,3 +130,9 @@ class SetNewPasswordSerializer(serializers.ModelSerializer):
 
 
 
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username', 'email', 'avatar', 'phone', 'city')
+        read_only_fields = ('business',)
