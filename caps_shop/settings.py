@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     # app
     'main',
     'users',
-    'user_profile',
+    # 'user_profile',
 ]
 
 MIDDLEWARE = [
