@@ -36,7 +36,7 @@ class RegistrationAPIView(generics.GenericAPIView):
         user_data = serializers.data
         user = User.objects.get(email=user_data['email'])
         token = RefreshToken.for_user(user).access_token
-        abs_url = 'http://127.0.0.1:8000/api/v1/verify-email/' + str(token)
+        abs_url = 'http://80.87.198.187:8002/users/verify-email/' + str(token)
         email_body = f'hello {user.first_name} ' \
                      f'Use this link to activate your email\n ' \
                      f'The link will be active for 10 minutes \n {abs_url}'

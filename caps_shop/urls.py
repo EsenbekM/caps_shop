@@ -23,6 +23,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin007/', admin.site.urls),
     path('users/', include('users.urls')),
+    path('profile/', include('user_profile.urls')),
     path('', include('main.urls')),
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
