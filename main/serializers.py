@@ -17,7 +17,7 @@ class BrandSerializer(serializers.ModelSerializer):
 class BestsellerSerializer(serializers.ModelSerializer):
     cap = serializers.SlugRelatedField(slug_field='name', read_only=True)
     class Meta:
-        model = Bestsallers
+        model = Bestsaller
         fields = '__all__'
 
 class CapCreateValidateSerializer(serializers.Serializer):
@@ -36,3 +36,10 @@ class CapCreateValidateSerializer(serializers.Serializer):
     def validate_title(self, name):
         if Cap.objects.filter(name=name):
             raise ValidationError("This cap already exist!")
+
+class EventsSerializer(serializers.Serializer):
+    cap = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    event_price = serializers.IntegerField()
+    class Meta:
+        model = Event
+        fields = '__all__'

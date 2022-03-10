@@ -1,3 +1,5 @@
+from asyncio.windows_events import NULL
+from django.forms import BooleanField
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django_filters import filters
@@ -7,8 +9,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.pagination import PageNumberPagination
-from .serializers import BestsellerSerializer, BrandSerializer, CapsSerializer, CapCreateValidateSerializer
-from .models import Bestsallers, Brand, Cap
+from .serializers import BestsellerSerializer, BrandSerializer, CapsSerializer, CapCreateValidateSerializer, EventsSerializer
+from .models import Bestsaller, Brand, Cap, Event
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import GenericAPIView
@@ -48,10 +50,14 @@ class BrandListAPIView(ListAPIView):
     pagination_class = PageNumberPagination
 
 class BestsellersListAPIView(ListAPIView):
-    queryset = Bestsallers.objects.all()
+    queryset = Bestsaller.objects.all()
     serializer_class = BestsellerSerializer
     pagination_class = PageNumberPagination
 
+class EventsListAPIView(ListAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventsSerializer
+    pagination_class = PageNumberPagination
 # def show_Book(request,CapID):
 #     showBook=get_object_or_404(Cap,CapID=CapID)
 #     is_favorite=False

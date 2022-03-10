@@ -31,14 +31,21 @@ class Cap(models.Model):
     updated = models.DateTimeField(auto_now=True)
     favorit=models.ManyToManyField('users.User',related_name='favorit', blank=True)
 
-    new_price = models.FloatField(default=True,null=True,blank=True)
+    new_price = models.FloatField(null=True, blank=True)
 
 
     def __str__(self):
         return self.name 
 
-class Bestsallers(models.Model):
+class Bestsaller(models.Model):
     cap = models.ForeignKey(Cap, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.cap}'
+
+class Event(models.Model):
+    cap = models.ForeignKey(Cap, on_delete=models.CASCADE)
+    event_price = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.cap}'
