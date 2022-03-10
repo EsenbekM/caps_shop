@@ -43,3 +43,10 @@ class EventsSerializer(serializers.Serializer):
     class Meta:
         model = Event
         fields = '__all__'
+
+class EventDetailSerializer(serializers.Serializer):
+    cap = CapsSerializer()
+    event_price = serializers.IntegerField()
+    class Meta:
+        model = Event
+        fields = 'name event_price'

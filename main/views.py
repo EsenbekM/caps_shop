@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.pagination import PageNumberPagination
-from .serializers import BestsellerSerializer, BrandSerializer, CapsSerializer, CapCreateValidateSerializer, EventsSerializer
+from .serializers import BestsellerSerializer, BrandSerializer, CapsSerializer, CapCreateValidateSerializer, EventDetailSerializer, EventsSerializer
 from .models import Bestsaller, Brand, Cap, Event
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
@@ -58,6 +58,12 @@ class EventsListAPIView(ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventsSerializer
     pagination_class = PageNumberPagination
+
+
+class EventDetailAPIView(RetrieveAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventDetailSerializer
+    lookup_field = 'id'
 # def show_Book(request,CapID):
 #     showBook=get_object_or_404(Cap,CapID=CapID)
 #     is_favorite=False
